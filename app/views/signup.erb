@@ -1,0 +1,28 @@
+<h1>MATCH TRACKER</H1>
+
+<h3><%= flash[:errors] %></h3>
+
+<h3>Sign-up</h3>
+
+<form action="/signup" method="post">
+    <label for="name">Userame:</label> 
+    <input type="text" name="user[username]" value=""><br>
+    
+    <label for="age">Age:</label> 
+    <input type="number" name="user[age]" value=""><br>
+    
+    <label for="gender">Gender:</label>
+    <input type="radio" name="user[gender]" value="male"> Male 
+    <input type="radio" name="user[gender]" value="female"> Female<br>
+    
+    <label for="address">Address:</label> 
+    <input type="text" name="user[address]"><br>
+
+    <label for="email">Email:</label> 
+    <input type="email" name="user[email]"><br>
+
+    <label for="password">Password:</label> 
+    <input type="password" name="user[password]"><br>
+    
+    <input type="submit" value="Signup">
+</form>

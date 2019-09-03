@@ -1,0 +1,40 @@
+<h1>Your Matches</h1>
+
+<table>
+    <tr>
+        <th> Win </th>
+        <th> Date of Match </th>
+        <th> Opponent </th>
+        <th> Score </th>
+        <th> Age </th>
+        <th> Gender </th>
+        <th> Location </th>
+        <th> Notes </th>
+    </tr>
+    <% @matches.each do |m| %>
+    <tr> 
+        <% if m.user_score.to_i > m.opponent_score.to_i %>
+            <td> <a href="/matches/<%= m.id %>/edit"> Win</a></td>
+        <% elsif m.user_score.to_i < m.opponent_score.to_i %>
+            <td> <a href="/matches/<%= m.id %>/edit"> Lose</a> </td>
+        <% end %>
+        <td> <%= m.date %> </td>
+        <td> <%= m.opponent.username %> </td>
+        <td> <%= m.user_score %> : <%= m.opponent_score %></td>
+        <td> <%= m.opponent.age %> </td>
+        <td> <%= m.opponent.gender %> </td>
+        <td> <%= m.opponent.address %> </td>
+        <td> <%= m.user_notes %> </td>
+    </tr>
+    <% end %>
+</table>
+<br>
+
+<form action="/matches/new">
+    <button type="submit">New Match</button>
+</form>
+<br>
+
+<form action="/users/logout" method="post">
+    <input type="submit" value="Logout" >
+</form>

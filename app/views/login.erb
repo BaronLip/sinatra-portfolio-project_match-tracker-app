@@ -1,0 +1,18 @@
+<h1>MATCH TRACKER</H1>
+
+<h3><%= flash[:errors] %></h3>
+
+<h3>Login</h3>
+
+<form action="/login" method="post">
+    <label for="name">Username:</label> 
+    <input type="text" name="username" value=""><br>
+    
+    <label for="email">Email:</label> 
+    <input type="text" name="email" value=""><br>
+
+    <label for="password">Password:</label> 
+    <input type="password" name="password" value=""><br>
+
+    <input type="submit" value="Login">
+</form>
