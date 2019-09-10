@@ -1,10 +1,23 @@
 <h1>Add a Match</h1>
 
+<h3><%= flash[:errors] %></h3>
+
 <% if logged_in? %>
+    <h3>If "New Opponent", click submit immediately after.</h3><br>
 
     <form id="new_match" action='/matches/new' method="post">
         <!-- Auto-assign user-id to new Match.-->
         <input type="hidden" name="match[user_id]" value="<%= current_user.id %>">
+
+        <label>Select Opponent:</label>
+        <select form="new_match" name="opponent[username]" id="opponent_username" >
+            <option>Select from below:</option>
+            <option value="New Opponent">New Opponent</option>
+            <% @opponents.each do |o| %>
+            <option value="<%= o.username %>"> <%= o.username %> </option>
+            <% end %>
+        </select>
+        <br>
 
         <label>Date of Match</label>
         <input type="date" name="match[date]">
@@ -18,33 +31,18 @@
         <input type="number" name="match[opponent_score]" max="21">
         <br>
 
-        <label>Opponent Name:</label>
-        <input type="text" name="opponent[username]">
+        <label for="notes">Match Notes</label>
+        <textarea rows="5" cols="30" form="new_match" name="match[user_notes]"></textarea>
         <br>
 
-        <label>Opponent Age:</label>
-        <input type="number" name="opponent[age]">
-        <br>
-
-        <label>Opponent Gender: </label>
-        <input type="radio" name="opponent[gender]" value="male"> male
-        <input type="radio" name="opponent[gender]" value="female"> female
-        <br>
-
-        <label>Opponent Location:</label>
-        <input type="text" name="opponent[address]">
-        <br>
-
-        <label for="notes">Notes</label>
-        <textarea rows="5" cols="30" form="new_match" name="match[user_notes]">
-        </textarea>
-        <br>
-
-        <input type="submit" value="Add Match">
+        <input type="submit" value="Submit">
     </form>
 
-
+    <form action="/users/home">
+        <button type="submit">Home</button>
+    </form>
 
 <% else %>
     <h3>Log in to make a match.</h3>
 <% end %>
+

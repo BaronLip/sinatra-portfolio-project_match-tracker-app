@@ -36,6 +36,30 @@ Opponent.create(
     :email => "leon@leon.com"
 )
 
+Opponent.create(
+    :username => "Andy", 
+    :age => 60, 
+    :gender => "male", 
+    :address => "Schaumburg, IL", 
+    :email => "andy@andy.com"
+)
+
+Opponent.create(
+    :username => "Das", 
+    :age => 50, 
+    :gender => "male", 
+    :address => "Vernon Hills, IL", 
+    :email => "das@das.com"
+)
+
+Opponent.create(
+    :username => "Ma Long", 
+    :age => 29, 
+    :gender => "male", 
+    :address => "China", 
+    :email => "malong@malong.com"
+)
+
 Match.create(
     :date => "August 29th, 2019",
     :user_id => 1,

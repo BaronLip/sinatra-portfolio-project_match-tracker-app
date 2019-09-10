@@ -1,0 +1,36 @@
+<h1>Add an Opponent</h1>
+
+<!--<h3><%= flash[:errors] %></h3>-->
+
+<% if logged_in? %>
+
+    <form id="new_opponent" action='/opponents/new' method="post">
+
+        <label> Opponent Username</label>
+        <input type="text" name="opponent[username]">
+        <br>
+        
+        <label>Opponent Age:</label>
+        <input type="number" name="opponent[age]">
+        <br>
+
+        <label>Opponent Gender: </label>
+        <input type="radio" name="opponent[gender]" value="male"> male
+        <input type="radio" name="opponent[gender]" value="female"> female
+        <br>
+
+        <label>Opponent Location:</label>
+        <input type="text" name="opponent[address]">
+        <br>
+
+        <input type="submit" value="Add Opponent">
+    </form>
+
+    <form action="/users/home">
+        <button type="submit">Home</button>
+    </form>
+
+<% else %>
+    <h3>Log in to add an opponent.</h3>
+<% end %>
+
