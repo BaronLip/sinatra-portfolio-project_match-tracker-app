@@ -31,7 +31,7 @@
 ### Continued improvement:
 1. ~~Limit score to 21 points.~~
 2. Utilize CSS to color table cells on home page.
-3. Create drop down menu to select from existing Opponents.
+3. ~~Create drop down menu to select from existing Opponents.~~
 4. Index page of all existing Matches, Match.all.
 5. App should really track best of 5 or best of 7 matches. 
     * Include a nested params hash that includes the individual match scores.
