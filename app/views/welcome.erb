@@ -1,8 +1,35 @@
 <h1>MATCH TRACKER</H1>
 
-<p>Keep track of your performance.</p>
+<p>Keep track of your stats.</p>
 
 <h3><a href="/signup">Signup</a></h3>
 <p>or</p>
 <h3><a href="/login">Login</a></h3>
+<br>
+<hr>
 
+<h3> Match Board </h3>
+<table>
+    <tr>
+        <th> Win </th>
+        <th> Date of Match </th>
+        <th> Player 1 </th>
+        <th> Player 2 </th>
+        <th> Score </th>
+        <th> Location </th>
+    </tr>
+    <% @matches.each do |m| %>
+    <tr> 
+        <% if m.user_score.to_i > m.opponent_score.to_i %>
+            <td> <a href="/matches/<%= m.id %>/edit"> Win</a></td>
+        <% elsif m.user_score.to_i < m.opponent_score.to_i %>
+            <td> <a href="/matches/<%= m.id %>/edit"> Lose</a> </td>
+        <% end %>
+        <td> <%= m.date %> </td>
+        <td> <%= m.user.username %> </td>
+        <td> <%= m.opponent.username %> </td>
+        <td> <%= m.user_score %> : <%= m.opponent_score %></td>
+        <td> <%= m.opponent.address %> </td>
+    </tr>
+    <% end %>
+</table>

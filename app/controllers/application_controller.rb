@@ -22,6 +22,7 @@ class ApplicationController < Sinatra::Base
 
 
     get "/" do
+        @matches = Match.all
         erb :welcome
     end
 
