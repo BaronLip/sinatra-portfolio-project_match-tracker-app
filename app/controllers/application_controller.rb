@@ -18,7 +18,6 @@ class ApplicationController < Sinatra::Base
         def logged_in?
 			!!session[:user_id]
         end
-        
     end
 
 
@@ -35,9 +34,10 @@ class ApplicationController < Sinatra::Base
 
     post "/signup" do
         @user = User.new(params[:user])
-
+                
         if @user.save
-            redirect '/login'
+            session[:user_id] = @user.id
+            redirect '/users/home'
         else
             flash[:errors] = @user.errors.full_messages.join(", ")
             redirect '/signup'

@@ -15,7 +15,7 @@ class MatchesController < ApplicationController
         @opponents = Opponent.all
 
         if difference_of_two?
-            # binding.pry
+
             @match = Match.new(params[:match])
 
             @opponent = Opponent.create(:username => params[:opponent][:username])
@@ -52,19 +52,27 @@ class MatchesController < ApplicationController
         @match = Match.find_by(:id => params[:id])
         @opponent = Opponent.find_by(:id => @match[:opponent_id])
         @opponents = Opponent.all
-        erb :'/matches/edit.html'    
+        erb :'/matches/edit.html'
     end
     
     patch "/matches/:id/edit" do
+        if @match.user_id == current_user.id
+        
         @match = Match.find_by(:id => params[:id])
         @opponent = Opponent.find_by(:id => @match[:opponent_id])
         
-        if difference_of_two?
-            @match.update(params[:match])       
-            redirect '/users/home'
+            
+            if difference_of_two?
+                @match.update(params[:match])       
+                redirect '/users/home'
+            else
+                flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
+                erb :'/matches/edit.html'
+            end
+        
         else
-            flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
-            erb :'/matches/edit.html'
+            flash.now[:errors] = "This is not your match."
+            redirect '/users/home'
         end
     end
 
