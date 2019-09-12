@@ -19,9 +19,6 @@ class ApplicationController < Sinatra::Base
 			!!session[:user_id]
         end
         
-        # def difference_of_two
-        #     if user_score - 
-        # end
     end
 
 

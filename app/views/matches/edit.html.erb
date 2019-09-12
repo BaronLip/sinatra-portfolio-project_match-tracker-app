@@ -1,5 +1,7 @@
 <h1>Edit/Delete Match</h1>
 
+<h3><%= flash[:errors] %></h3>
+
 <% if logged_in? %>
 
     <form id="edit_match" action="/matches/<%= @match.id %>/edit" method="post">
@@ -26,8 +28,8 @@
         <br>
 
         <label>Opponent Gender: </label>
-        <input type="radio" name="opponent[gender]" value="male"> male
-        <input type="radio" name="opponent[gender]" value="female"> female
+        <input type="radio" name="opponent[gender]" value="male" <%= "checked" if @opponent.gender == "male" %>> male
+        <input type="radio" name="opponent[gender]" value="female" <%= "checked" if @opponent.gender == "female" %>> female
         <br>
 
         <label>Opponent Location:</label>
@@ -35,8 +37,7 @@
         <br>
 
         <label for="notes">Notes</label>
-        <textarea rows="5" cols="30" form="edit_match" name="match[user_notes]" value="<%= @match.user_notes %>">
-        </textarea>
+        <textarea rows="5" cols="30" form="edit_match" name="match[user_notes]"><%= @match.user_notes %></textarea>
         <br>
 
         <input type="submit" value="Update">
