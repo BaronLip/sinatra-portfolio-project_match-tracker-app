@@ -23,6 +23,9 @@ class ApplicationController < Sinatra::Base
 
     get "/" do
         @matches = Match.all
+        @user = User.all
+        @opponent = Opponent.all
+        binding.pry
         erb :welcome
     end
 

@@ -1,6 +1,6 @@
 <h1>MATCH TRACKER</H1>
 
-<p>A table tennis score keeper and athletic journal.</p>
+<p></p>A table tennis score keeper and athletic journal.</p>
 
 <h3><a href="/signup">Signup</a></h3>
 <span>or</span>
@@ -11,7 +11,7 @@
 <h3> Match Board </h3>
 <table>
     <tr>
-        <th> Win </th>
+        <th> Winner </th>
         <th> Date of Match </th>
         <th> Player 1 </th>
         <th> Player 2 </th>
@@ -21,9 +21,11 @@
     <% @matches.each do |m| %>
     <tr> 
         <% if m.user_score.to_i > m.opponent_score.to_i %>
-            <td> <a href="/matches/<%= m.id %>/edit"> Win</a></td>
+            <% player = @user.find_by_id(m.user_id) %>
+            <td><%= player.username %></td>
         <% elsif m.user_score.to_i < m.opponent_score.to_i %>
-            <td> <a href="/matches/<%= m.id %>/edit"> Lose</a> </td>
+            <% player = @opponent.find_by_id(m.opponent_id) %>
+            <td><%= player.username %></td>
         <% end %>
         <td> <%= m.date %> </td>
         <td> <%= m.user.username %> </td>
