@@ -35,7 +35,9 @@ class ApplicationController < Sinatra::Base
         if @user.save
             redirect '/login'
         else
-            flash[:errors] = @user.errors.full_messages
+            flash[:errors] = @user.errors.full_messages.join(", ")
+            # flash[:errors] = "This better work"
+            # binding.pry
             redirect '/signup'
         end
     end
