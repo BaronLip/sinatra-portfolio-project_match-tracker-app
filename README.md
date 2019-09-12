@@ -1,6 +1,8 @@
 # sinatra-portfolio-project_match-tracker-app
  
-### This is a match tracking app intended for table tennis. Table tennis was the sport that inspired this project but is not properly clarified in the name.
+### This is a match tracking app intended for table tennis.
+
+### 
 
 ### Features:
 - Signup
