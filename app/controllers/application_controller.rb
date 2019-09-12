@@ -17,7 +17,11 @@ class ApplicationController < Sinatra::Base
 
         def logged_in?
 			!!session[:user_id]
-		end
+        end
+        
+        # def difference_of_two
+        #     if user_score - 
+        # end
     end
 
 
@@ -25,7 +29,6 @@ class ApplicationController < Sinatra::Base
         @matches = Match.all
         @user = User.all
         @opponent = Opponent.all
-        binding.pry
         erb :welcome
     end
 
@@ -40,8 +43,6 @@ class ApplicationController < Sinatra::Base
             redirect '/login'
         else
             flash[:errors] = @user.errors.full_messages.join(", ")
-            # flash[:errors] = "This better work"
-            # binding.pry
             redirect '/signup'
         end
     end
@@ -58,7 +59,6 @@ class ApplicationController < Sinatra::Base
             redirect '/users/home'
         else
             flash[:errors] = "Try again. Something wasn't right."
-            # binding.pry
             redirect '/login'
         end
     end
