@@ -1,11 +1,5 @@
 class UsersController < ApplicationController
 
-    get '/users/home' do
-        @user = User.find_by(:id => session[:user_id])
-        @matches = Match.where(:user_id => session[:user_id])
-        erb :'/users/home.html'       
-    end
-
     get "/signup" do
         erb :'/users/signup'
     end
@@ -33,9 +27,15 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect '/users/home'
         else
-            flash[:errors] = "Try again. Something wasn't right."
-            redirect '/users/login'
+            flash.now[:errors] = "Try again. Something wasn't right."
+             erb :'/users/login'
         end
+    end
+
+    get '/users/home' do
+        @user = User.find_by(:id => session[:user_id])
+        @matches = Match.where(:user_id => session[:user_id])
+        erb :'/users/home.html'       
     end
 
     post "/users/logout" do

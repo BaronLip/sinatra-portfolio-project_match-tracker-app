@@ -18,14 +18,14 @@ class MatchesController < ApplicationController
         
         @opponent = Opponent.create(:username => params[:opponent][:username])
         
-        if difference_of_two?
-            
-            if @opponent.username == "New Opponent"
-                redirect '/opponents/new'
-            else @opponent = Opponent.find_by(:username => params[:opponent][:username])
-            end
+        if @opponent.username == "New Opponent"
+            redirect '/opponents/new'
+        else @opponent = Opponent.find_by(:username => params[:opponent][:username])
+        end
+        
+        @match.opponent_id = @opponent.id
 
-            @match.opponent_id = @opponent.id
+        if difference_of_two?
 
             if @match.save
                 @matches = Match.where(:user_id => session[:user_id])
@@ -50,9 +50,14 @@ class MatchesController < ApplicationController
 
     get '/matches/:id/edit' do
         @match = Match.find_by(:id => params[:id])
-        @opponent = Opponent.find_by(:id => @match[:opponent_id])
-        @opponents = Opponent.all
-        erb :'/matches/edit.html'
+        
+        if @match.user_id == current_user.id
+            @opponent = Opponent.find_by(:id => @match[:opponent_id])
+            @opponents = Opponent.all
+            erb :'/matches/edit.html'
+        else
+            redirect '/users/home'
+        end
     end
     
     patch "/matches/:id/edit" do
@@ -61,7 +66,8 @@ class MatchesController < ApplicationController
         if @match.user_id == current_user.id
             
             if difference_of_two?
-                @match.update(params[:match])       
+                @match.update(params[:match])
+                @opponent.update(params[:opponent])
                 redirect '/users/home'
             else
                 flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
@@ -76,7 +82,11 @@ class MatchesController < ApplicationController
 
     delete '/matches/:id/delete' do
         @match = Match.find_by(:id => params[:id])
-        @match.destroy
+        
+        if @match.user_id == current_user.id
+            @match.destroy
+        end
+       
         redirect '/users/home'
     end
 end
