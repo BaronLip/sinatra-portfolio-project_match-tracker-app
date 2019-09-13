@@ -14,11 +14,11 @@ class MatchesController < ApplicationController
     post '/matches/new' do
         @opponents = Opponent.all
 
+        @match = Match.new(params[:match])
+        
+        @opponent = Opponent.create(:username => params[:opponent][:username])
+        
         if difference_of_two?
-
-            @match = Match.new(params[:match])
-
-            @opponent = Opponent.create(:username => params[:opponent][:username])
             
             if @opponent.username == "New Opponent"
                 redirect '/opponents/new'
@@ -56,11 +56,9 @@ class MatchesController < ApplicationController
     end
     
     patch "/matches/:id/edit" do
-        if @match.user_id == current_user.id
-        
         @match = Match.find_by(:id => params[:id])
         @opponent = Opponent.find_by(:id => @match[:opponent_id])
-        
+        if @match.user_id == current_user.id
             
             if difference_of_two?
                 @match.update(params[:match])       

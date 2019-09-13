@@ -43,12 +43,15 @@
         <input type="submit" value="Update">
     </form>
 
+
     <form action="/matches/<%= @match.id %>/delete" method="post">
         <input type="hidden" name="_method" value="delete">
         <input type="submit" value="Delete">
     </form>
 
-
+    <form action="/matches/new">
+        <button type="submit">Back</button>
+    </form>
 
 <% else %>
     <h3>Log in to edit a match.</h3>

@@ -6,7 +6,7 @@ class OpponentsController < ApplicationController
 
     post '/opponents/new' do
         @opponent = Opponent.find_by(:username => "New Opponent")
-        binding.pry
+
         if @opponent.update(:username => params[:opponent][:username])
             @opponent.update(params[:opponent])
             redirect '/matches/new'

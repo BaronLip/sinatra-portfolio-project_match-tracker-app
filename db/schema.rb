@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190910182024) do
+ActiveRecord::Schema.define(version: 20190903032540) do
 
   create_table "matches", force: :cascade do |t|
     t.string   "date"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20190910182024) do
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "new"
   end
 
   create_table "users", force: :cascade do |t|

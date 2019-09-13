@@ -61,7 +61,7 @@ Opponent.create(
 )
 
 Match.create(
-    :date => "August 29th, 2019",
+    :date => "2019-08-25",
     :user_id => 1,
     :user_score => 11,
     :user_notes => "Need to work on backhand. Make sure to turn at the waist.",
