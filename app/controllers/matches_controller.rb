@@ -72,8 +72,23 @@ class MatchesController < ApplicationController
             
             if difference_of_two?
                 @match.update(params[:match])
+                @opponent = Opponent.find_by(:username => params[:opponent][:username])
+                @match.opponent_id = @opponent.id
                 @opponent.update(params[:opponent])
+                @match.save
                 redirect '/users/home'
+
+                # if @opponent = Opponent.find_by(:username => params[:opponent][:username])
+                #     @opponent.update(params[:opponent])
+                #     redirect '/users/home'
+                # else
+                #     @opponent = Opponent.find_by(:id => @match[:opponent_id])
+                #     @opponents = Opponent.all
+                #     flash.now[:errors] = "Please select an opponent!"
+                #     erb :'/matches/edit.html'
+                # end
+
+
             else
                 flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
                 erb :'/matches/edit.html'
@@ -81,7 +96,7 @@ class MatchesController < ApplicationController
         
         else
             flash.now[:errors] = "This is not your match."
-            redirect '/users/home'
+            erb :'/users/home'
         end
     end
 

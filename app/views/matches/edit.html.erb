@@ -1,6 +1,6 @@
 <h1>Edit/Delete Match</h1>
 
-<h3><%= flash[:errors] %></h3>
+<h3 style="color: red;"><%= flash[:errors] %></h3>
 
 <% if logged_in? %>
 
@@ -20,8 +20,17 @@
         <br>
 
         <label>Opponent Name:</label>
-        <input type="text" name="opponent[username]" value="<%= @opponent.username %>">
+        <!--<input type="text" name="opponent[username]" value="<%= @opponent.username %>"> -->
+        <select form="edit_match" name="opponent[username]" id="opponent_username">
+            
+            <option value="" selected disabled>Select from below:</option>
+            
+            <% @opponents.each do |o| %>
+            <option value="<%= o.username %>"> <%= o.username %> </option>
+            <% end %>
+        </select>
         <br>
+
 
         <label>Opponent Age:</label>
         <input type="number" name="opponent[age]" value="<%= @opponent.age %>">
