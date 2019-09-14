@@ -16,30 +16,35 @@ class MatchesController < ApplicationController
 
         @match = Match.new(params[:match])
         
-        @opponent = Opponent.create(:username => params[:opponent][:username])
-        
-        if @opponent.username == "New Opponent"
-            redirect '/opponents/new'
-        else @opponent = Opponent.find_by(:username => params[:opponent][:username])
-        end
-        
-        @match.opponent_id = @opponent.id
-
-        if difference_of_two?
-
-            if @match.save
-                @matches = Match.where(:user_id => session[:user_id])
-                redirect '/users/home'
-            else
-                flash.now[:errors] = @match.errors.full_messages
-                redirect '/matches/new'
-            end
-
-        else
-            flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
+        if params[:opponent] == nil
+            flash.now[:errors] = "Please select an opponent!"
             erb :'/matches/new.html'
-        end
+        else
+            @opponent = Opponent.create(:username => params[:opponent][:username])
+
+            if @opponent.username == "New Opponent"
+                redirect '/opponents/new'
+            else @opponent = Opponent.find_by(:username => params[:opponent][:username])
+            end
+            
+            @match.opponent_id = @opponent.id
+
+            if difference_of_two?
+
+                if @match.save
+                    @matches = Match.where(:user_id => session[:user_id])
+                    redirect '/users/home'
+                else
+                    flash.now[:errors] = @match.errors.full_messages.join
+                    erb :'/matches/new.html'
+                end
+
+            else
+                flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
+                erb :'/matches/new.html'
+            end
         
+        end        
         # if @opponent = Opponent.find_by(:username => params[:opponent][:username])
         # else @opponent = Opponent.create(params[:opponent])
         # end

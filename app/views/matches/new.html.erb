@@ -1,6 +1,6 @@
 <h1>Add a Match</h1>
 
-<h3><%= flash[:errors] %></h3>
+<h3 style="color: red;"><%= flash[:errors] %></h3>
 
 <% if logged_in? %>
     <h3>If "New Opponent", click submit immediately after.</h3><br>
@@ -11,8 +11,11 @@
 
         <label>Select Opponent:</label>
         <select form="new_match" name="opponent[username]" id="opponent_username" >
-            <option>Select from below:</option>
+            
+            <option value="" selected disabled>Select from below:</option>
+            
             <option value="New Opponent">New Opponent</option>
+            
             <% @opponents.each do |o| %>
             <option value="<%= o.username %>"> <%= o.username %> </option>
             <% end %>
@@ -24,11 +27,11 @@
         <br>
 
         <label>Your Score:</label>
-        <input type="number" name="match[user_score]" max="21">
+        <input type="number" name="match[user_score]" max="21" min="0">
         <br>
 
         <label>Opponents Score:</label>
-        <input type="number" name="match[opponent_score]" max="21">
+        <input type="number" name="match[opponent_score]" max="21" min="0">
         <br>
 
         <label for="notes">Match Notes</label>

@@ -4,8 +4,9 @@
 
 ### Install:
 1. Run $bundle install.
-2. $ bundle exec shotgun.
-3. Navigate to "http://localhost:9393/" within browser.
+2. $ rake db:migrate.
+3. $ bundle exec shotgun.
+4. Navigate to "http://localhost:9393/" within browser.
 
 ### Features:
 - Signup

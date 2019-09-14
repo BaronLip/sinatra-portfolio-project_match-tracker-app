@@ -9,9 +9,14 @@ class OpponentsController < ApplicationController
 
         if @opponent.update(:username => params[:opponent][:username])
             @opponent.update(params[:opponent])
-            redirect '/matches/new'
+            if @opponent.username != "New Opponent"
+                redirect '/matches/new'
+            else
+                flash.now[:errors] = "Opponent cannot be 'New Opponent'"
+                erb :'/opponents/new'
+            end
         else
-            flash[:errors] = @opponent.errors.full_messages.join
+            flash.now[:errors] = @opponent.errors.full_messages.join
             erb :'/opponents/new'
         end
     end

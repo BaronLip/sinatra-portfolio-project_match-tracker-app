@@ -11,8 +11,8 @@ class UsersController < ApplicationController
             session[:user_id] = @user.id
             redirect '/users/home'
         else
-            flash[:errors] = @user.errors.full_messages.join(", ")
-            redirect '/users/signup'
+            flash.now[:errors] = @user.errors.full_messages.join(", ")
+            erb :'/users/signup'
         end
     end
 
@@ -21,15 +21,21 @@ class UsersController < ApplicationController
     end
 
     post "/login" do
-        @user = User.find_by(:email => params[:email])
+        if @user = User.find_by(:email => params[:email]) && @user = User.find_by(:username => params[:username])
 
-        if @user && @user.authenticate(params[:password])
-            session[:user_id] = @user.id
-            redirect '/users/home'
+            if @user && @user.authenticate(params[:password])
+                session[:user_id] = @user.id
+                redirect '/users/home'
+            else
+                flash.now[:errors] = "Password is incorrect"
+                erb :'/users/login'
+            end
+
         else
-            flash.now[:errors] = "Try again. Something wasn't right."
-             erb :'/users/login'
+            flash.now[:errors] = "Username and Email do not belong to the same user"
+            erb :'/users/login'
         end
+
     end
 
     get '/users/home' do
