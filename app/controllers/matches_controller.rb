@@ -73,10 +73,19 @@ class MatchesController < ApplicationController
             if difference_of_two?
                 @match.update(params[:match])
                 @opponent = Opponent.find_by(:username => params[:opponent][:username])
-                @match.opponent_id = @opponent.id
-                @opponent.update(params[:opponent])
-                @match.save
-                redirect '/users/home'
+                binding.pry
+                if @opponent == nil
+                    @match = Match.find_by(:id => params[:id])
+                    @opponent = Opponent.find_by(:id => @match[:opponent_id])
+                    @opponents = Opponent.all
+                    flash.now[:errors] = "Please select an opponent!"
+                    erb :'/matches/edit.html'
+                else
+                    @match.opponent_id = @opponent.id
+                    @opponent.update(params[:opponent])
+                    @match.save
+                    redirect '/users/home'
+                end
 
                 # if @opponent = Opponent.find_by(:username => params[:opponent][:username])
                 #     @opponent.update(params[:opponent])
