@@ -30,7 +30,8 @@
         - there must be a difference of 2 between scores.
     * Links back to Home page.
 - Edit Match page
-    * Allows User to edit existing Match.
+    * Allows User to edit existing Match and Opponent info.
+        - Reminds user to select an opponent if not selected.
     * Allows User to delete existing Match.
     * Links back to Home page.
 - New Opponent page
@@ -48,6 +49,5 @@
     * Include a nested params hash that includes the individual match scores.
 6. ~~When creating new Match, validate Opponent is unique.~~
 7. When editing a match, have drop down menu for opponents.
-8. Tally up wins/losses and have win percentage on home page. 
-
-
+8. Tally up wins/losses and have win percentage on home page.
+9. Combine Match and Opponent creation in one form.

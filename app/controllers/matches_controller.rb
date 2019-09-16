@@ -45,12 +45,7 @@ class MatchesController < ApplicationController
             end
         
         end        
-        # if @opponent = Opponent.find_by(:username => params[:opponent][:username])
-        # else @opponent = Opponent.create(params[:opponent])
-        # end
 
-        # @opponent = Opponent.find_or_create_by(:username => params[:opponent][:username])
-        # Wanted to use find_or_create_by but the additional opponent params are wasted.
     end
 
     get '/matches/:id/edit' do
@@ -73,7 +68,7 @@ class MatchesController < ApplicationController
             if difference_of_two?
                 @match.update(params[:match])
                 @opponent = Opponent.find_by(:username => params[:opponent][:username])
-                binding.pry
+
                 if @opponent == nil
                     @match = Match.find_by(:id => params[:id])
                     @opponent = Opponent.find_by(:id => @match[:opponent_id])
@@ -86,17 +81,6 @@ class MatchesController < ApplicationController
                     @match.save
                     redirect '/users/home'
                 end
-
-                # if @opponent = Opponent.find_by(:username => params[:opponent][:username])
-                #     @opponent.update(params[:opponent])
-                #     redirect '/users/home'
-                # else
-                #     @opponent = Opponent.find_by(:id => @match[:opponent_id])
-                #     @opponents = Opponent.all
-                #     flash.now[:errors] = "Please select an opponent!"
-                #     erb :'/matches/edit.html'
-                # end
-
 
             else
                 flash.now[:errors] = "!!!Scores must have a difference of 2!!!"
