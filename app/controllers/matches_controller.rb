@@ -63,6 +63,8 @@ class MatchesController < ApplicationController
     patch "/matches/:id/edit" do
         @match = Match.find_by(:id => params[:id])
         @opponent = Opponent.find_by(:id => @match[:opponent_id])
+        @opponents = Opponent.all
+        
         if @match.user_id == current_user.id
             
             if difference_of_two?
